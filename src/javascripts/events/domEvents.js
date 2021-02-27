@@ -24,7 +24,6 @@ const domEvents = () => {
     if (e.target.id.includes('edit-book-btn')) {
       console.warn('CLICKED EDIT BOOK', e.target.id);
     }
-
     // CLICK EVENT FOR EDITING A BOOK
     if (e.target.id.includes('update-book')) {
       console.warn('CLICKED EDIT BOOK', e.target.id);
@@ -32,6 +31,10 @@ const domEvents = () => {
 
     // ADD CLICK EVENT FOR DELETING AN AUTHOR
     // ADD CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR
+    // if (e.target.id.includes('authors')) {
+    //   console.warn('CLICKED AUTHORS NAV', e.target.id);
+    // }
+
     // ADD CLICK EVENT FOR SUBMITTING FORM FOR ADDING AN AUTHOR
     // ADD CLICK EVENT FOR EDITING AN AUTHOR
   });
