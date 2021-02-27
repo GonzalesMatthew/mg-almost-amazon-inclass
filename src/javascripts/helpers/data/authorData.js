@@ -7,8 +7,14 @@ const dbUrl = firebaseConfig.databaseURL;
 // GET AUTHORS
 const getAuthors = () => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/authors.json`)
-    .then((response) => resolve(Object.values(response.data)))
-    .catch((error) => reject(error));
+    .then((response) => {
+      if (response.data) {
+        const authorArray = Object.values(response.data);
+        resolve(authorArray);
+      } else {
+        resolve([]);
+      }
+    }).catch((error) => reject(error));
 });
 
 // DELETE AUTHOR
