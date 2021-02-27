@@ -1,6 +1,9 @@
-import addBookForm from '../components/forms/addBookForm';
+import { showBooks } from '../components/books';
 import { createBook } from '../helpers/data/bookData';
-import showBooks from '../components/books';
+import { showAuthors } from '../components/authors';
+import { createAuthor } from '../helpers/data/authorData';
+import addAuthorForm from '../components/forms/addAuthorForm';
+import addBookForm from '../components/forms/addBookForm';
 
 const domEvents = () => {
   document.querySelector('body').addEventListener('click', (e) => {
@@ -35,6 +38,7 @@ const domEvents = () => {
     if (e.target.id.includes('edit-book-btn')) {
       console.warn('CLICKED EDIT BOOK', e.target.id);
     }
+
     // CLICK EVENT FOR EDITING A BOOK
     if (e.target.id.includes('update-book')) {
       console.warn('CLICKED EDIT BOOK', e.target.id);
@@ -42,11 +46,21 @@ const domEvents = () => {
 
     // ADD CLICK EVENT FOR DELETING AN AUTHOR
     // ADD CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR
-    // if (e.target.id.includes('authors')) {
-    //   console.warn('CLICKED AUTHORS NAV', e.target.id);
-    // }
-
+    if (e.target.id.includes('add-author-btn')) {
+      console.warn('CLICKED ADD AUTHOR BUTTON', e.target.id);
+      addAuthorForm();
+    }
     // ADD CLICK EVENT FOR SUBMITTING FORM FOR ADDING AN AUTHOR
+    if (e.target.id.includes('submit-author')) {
+      e.preventDefault();
+      const authorObject = {
+        first_name: document.querySelector('#firstName').value,
+        last_name: document.querySelector('#lastName').value,
+        // author_id: document.querySelector('#author').value,
+      };
+
+      createAuthor(authorObject).then((authorArray) => showAuthors(authorArray));
+    }
     // ADD CLICK EVENT FOR EDITING AN AUTHOR
   });
 };
