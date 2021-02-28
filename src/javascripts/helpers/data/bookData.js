@@ -18,7 +18,7 @@ const deleteBook = (firebaseKey) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-// GET SALE BOOKS
+// FILTER/GET SALE BOOKS
 const getSaleBooks = () => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/books.json?orderBy="sale"&equalTo=true`)
     .then((response) => {

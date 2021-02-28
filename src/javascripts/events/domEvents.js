@@ -1,7 +1,7 @@
 import { showBooks } from '../components/books';
 import { createBook, deleteBook } from '../helpers/data/bookData';
 import { showAuthors } from '../components/authors';
-import { createAuthor } from '../helpers/data/authorData';
+import { createAuthor, deleteAuthor } from '../helpers/data/authorData';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import addBookForm from '../components/forms/addBookForm';
 
@@ -46,12 +46,12 @@ const domEvents = () => {
     }
 
     // ADD CLICK EVENT FOR DELETING AN AUTHOR
-    // if (e.target.id.includes('delete-book')) {
-    //   if (window.confirm('Want to delete?')) {
-    //     const firebaseKey = e.target.id.split('--')[1];
-    //     deleteBook(firebaseKey).then((booksArray) => showBooks(booksArray));
-    //   }
-    // }
+    if (e.target.id.includes('delete-author')) {
+      if (window.confirm('Want to delete?')) {
+        const firebaseKey = e.target.id.split('--')[1];
+        deleteAuthor(firebaseKey).then((authorArray) => showAuthors(authorArray));
+      }
+    }
 
     // ADD CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR
     if (e.target.id.includes('add-author-btn')) {
@@ -64,7 +64,7 @@ const domEvents = () => {
       const authorObject = {
         first_name: document.querySelector('#firstName').value,
         last_name: document.querySelector('#lastName').value,
-        // author_id: document.querySelector('#author').value,
+        favorite: document.querySelector('#favorite').checked,
       };
 
       createAuthor(authorObject).then((authorArray) => showAuthors(authorArray));

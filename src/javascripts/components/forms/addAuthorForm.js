@@ -13,6 +13,10 @@ const addAuthorForm = () => {
         <label for="lastName">Author Last Name</label>
         <input type="text" class="form-control" id="lastName" placeholder="Last Name" required>
       </div>
+      <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="favorite">
+      <label class="form-check-label" for="favorite">Favorite?</label>
+    </div>
       <button type="submit" id="submit-author" class="btn btn-primary">Submit Author</button>
     </form>`;
 

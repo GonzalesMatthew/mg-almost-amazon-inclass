@@ -13,6 +13,9 @@ const showAuthors = (array) => {
     <div class="card">
         <div class="card-body" style="height: 180px;">
         <h5 class="card-title">${item.first_name} ${item.last_name}</h5>
+        <p class="card-text bold">${item.favorite ? `<span class="badge badge-info sale-badge"><i class="fa heart" aria-hidden="true"></i> Favorite</span>$${item.favorite}` : `$${item.favorite}`} </p>
+        <hr>
+        <button class="btn btn-danger" id="delete-author--${item.firebaseKey}">Delete Author</button>
         </div>
       </div>`;
   });
