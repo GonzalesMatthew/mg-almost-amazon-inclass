@@ -5,8 +5,8 @@ const selectAuthor = () => {
     <select class="form-control" id="author" required>
     <option value="">Select an Author</option>`;
 
-  getAuthors().then((authorsArray) => {
-    authorsArray.forEach((author) => {
+  getAuthors().then((authorArray) => {
+    authorArray.forEach((author) => {
       domString += `<option value="${author.firebaseKey}">${author.first_name} ${author.last_name}</option>`;
     });
 
