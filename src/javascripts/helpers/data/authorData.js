@@ -35,7 +35,18 @@ const createAuthor = (authorObject) => new Promise((resolve, reject) => {
         });
     }).catch((error) => reject(error));
 });
+
+// FILTER/GET SALE BOOKS
+const getFavoriteAuthors = () => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/authors.json?orderBy="favorite"&equalTo=true`)
+    .then((response) => {
+      const favoriteAuthorsArray = Object.values(response.data);
+      resolve(favoriteAuthorsArray);
+    }).catch((error) => reject(error));
+});
 // UPDATE AUTHOR
 // SEARCH AUTHORS
 
-export { getAuthors, createAuthor, deleteAuthor };
+export {
+  getAuthors, createAuthor, deleteAuthor, getFavoriteAuthors
+};
