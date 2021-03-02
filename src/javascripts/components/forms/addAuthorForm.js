@@ -2,7 +2,7 @@ import selectAuthor from './selectAuthor';
 
 const addAuthorForm = () => {
   document.querySelector('#store').innerHTML = '';
-  document.querySelector('#add-author-btn').innerHTML = '';
+  document.querySelector('#add-button').innerHTML = '';
   document.querySelector('#form-container').innerHTML = `
     <form id="submit-author-form" class="mb-4">
       <div class="form-group">

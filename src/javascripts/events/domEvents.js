@@ -61,7 +61,7 @@ const domEvents = () => {
     }
 
     // ADD CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR
-    if (e.target.id.includes('add-author-btn')) {
+    if (e.target.id.includes('add-button')) {
       addAuthorForm();
     }
     // ADD CLICK EVENT FOR SUBMITTING FORM FOR ADDING AN AUTHOR

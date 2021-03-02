@@ -3,7 +3,7 @@
 const showAuthors = (array) => {
   document.querySelector('#store').innerHTML = '';
   // CREATE A BUTTON TO ADD AUTHORS
-  document.querySelector('#add-button').innerHTML = '<button class="btn btn-success btn-lg mb-4" id="add-author-btn">Add An Author</button>';
+  document.querySelector('#add-button').innerHTML = '<button class="btn btn-success btn-lg mb-4" id="add-button">Add An Author</button>';
   // ERASE FORM
   document.querySelector('#form-container').innerHTML = '';
 
