@@ -1,3 +1,5 @@
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import axios from 'axios';
 import firebaseConfig from '../auth/apiKeys';
 // API CALLS FOR AUTHORS
@@ -6,7 +8,7 @@ const dbUrl = firebaseConfig.databaseURL;
 
 // GET AUTHORS
 const getAuthors = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/authors.json`)
+  axios.get(`${dbUrl}/authors.json?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
     .then((response) => {
       if (response.data) {
         const authorArray = Object.values(response.data);

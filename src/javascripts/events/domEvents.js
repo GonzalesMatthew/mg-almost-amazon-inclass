@@ -1,5 +1,10 @@
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import { showBooks } from '../components/books';
-import { createBook, deleteBook } from '../helpers/data/bookData';
+import {
+  createBook,
+  deleteBook
+} from '../helpers/data/bookData';
 import { showAuthors } from '../components/authors';
 import { createAuthor, deleteAuthor } from '../helpers/data/authorData';
 import addAuthorForm from '../components/forms/addAuthorForm';
@@ -24,12 +29,14 @@ const domEvents = () => {
     // CLICK EVENT FOR SUBMITTING FORM FOR ADDING A BOOK
     if (e.target.id.includes('submit-book')) {
       e.preventDefault();
+      console.warn(firebase.auth().currentUser.uid);
       const bookObject = {
         title: document.querySelector('#title').value,
         image: document.querySelector('#image').value,
         price: document.querySelector('#price').value,
         sale: document.querySelector('#sale').checked,
         author_id: document.querySelector('#author').value,
+        uid: firebase.auth().currentUser.uid,
       };
 
       createBook(bookObject).then((booksArray) => showBooks(booksArray));
@@ -55,7 +62,6 @@ const domEvents = () => {
 
     // ADD CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR
     if (e.target.id.includes('add-author-btn')) {
-      console.warn('CLICKED ADD AUTHOR BUTTON', e.target.id);
       addAuthorForm();
     }
     // ADD CLICK EVENT FOR SUBMITTING FORM FOR ADDING AN AUTHOR
@@ -65,6 +71,7 @@ const domEvents = () => {
         first_name: document.querySelector('#firstName').value,
         last_name: document.querySelector('#lastName').value,
         favorite: document.querySelector('#favorite').checked,
+        uid: firebase.auth().currentUser.uid,
       };
 
       createAuthor(authorObject).then((authorArray) => showAuthors(authorArray));
