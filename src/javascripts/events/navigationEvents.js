@@ -1,3 +1,5 @@
+// import firebase from 'firebase/app';
+// import 'firebase/auth';
 import { showAuthors } from '../components/authors';
 import { showBooks } from '../components/books';
 import signOut from '../helpers/auth/signOut';
@@ -5,7 +7,7 @@ import { getAuthors, getFavoriteAuthors } from '../helpers/data/authorData';
 import { getBooks, getSaleBooks } from '../helpers/data/bookData';
 
 // navigation events
-const navigationEvents = () => {
+const navigationEvents = (uid) => {
   // LOGOUT BUTTON
   document.querySelector('#logout-button')
     .addEventListener('click', signOut);
@@ -18,7 +20,7 @@ const navigationEvents = () => {
   // ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
     // GET ALL BOOKS on click
-    getBooks().then((booksArray) => showBooks(booksArray));
+    getBooks(uid).then((booksArray) => showBooks(booksArray));
   });
 
   // SEARCH
@@ -39,7 +41,7 @@ const navigationEvents = () => {
   // FIXME: STUDENTS Create an event listener for the Authors
   document.querySelector('#authors').addEventListener('click', () => {
     // GET ALL AUTHORS on click
-    getAuthors().then((authorArray) => showAuthors(authorArray));
+    getAuthors(uid).then((authorArray) => showAuthors(authorArray));
   });
 
   // 1. When a user clicks the authors link, make a call to firebase to get all authors

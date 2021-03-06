@@ -1,3 +1,5 @@
+import selectAuthor from './selectAuthor';
+
 const formModal = (modalTitle) => {
   document.querySelector('#form-container').innerHTML = `
   <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
@@ -14,6 +16,8 @@ const formModal = (modalTitle) => {
       </div>
     </div>
   </div>`;
+
+  selectAuthor();
 };
 
 export default formModal;

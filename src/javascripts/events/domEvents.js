@@ -1,11 +1,22 @@
+import firebase from 'firebase/app';
+import 'firebase/auth';
+// import axios from 'axios';
 import { showBooks } from '../components/books';
-import { createBook, deleteBook } from '../helpers/data/bookData';
+import {
+  createBook,
+  deleteBook,
+  // getBooks,
+  getSingleBook,
+  updateBook
+} from '../helpers/data/bookData';
 import { showAuthors } from '../components/authors';
 import { createAuthor, deleteAuthor } from '../helpers/data/authorData';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import addBookForm from '../components/forms/addBookForm';
+import editBookForm from '../components/forms/editBookForm';
+import formModal from '../components/forms/formModal';
 
-const domEvents = () => {
+const domEvents = (uid) => {
   document.querySelector('body').addEventListener('click', (e) => {
     // CLICK EVENT FOR DELETING A BOOK
     if (e.target.id.includes('delete-book')) {
@@ -30,19 +41,36 @@ const domEvents = () => {
         price: document.querySelector('#price').value,
         sale: document.querySelector('#sale').checked,
         author_id: document.querySelector('#author').value,
+        uid
       };
 
-      createBook(bookObject).then((booksArray) => showBooks(booksArray));
+      createBook(bookObject, uid).then((booksArray) => showBooks(booksArray));
     }
 
     // CLICK EVENT FOR SHOWING MODAL FORM FOR ADDING A BOOK
     if (e.target.id.includes('edit-book-btn')) {
-      console.warn('CLICKED EDIT BOOK', e.target.id);
+      const firebaseKey = e.target.id.split('--')[1];
+      formModal('Edit  Book');
+      // console.warn('CLICKED EDIT BOOK', e.target.id);
+      getSingleBook(firebaseKey).then((bookObject) => editBookForm(bookObject));
     }
 
     // CLICK EVENT FOR EDITING A BOOK
     if (e.target.id.includes('update-book')) {
       console.warn('CLICKED EDIT BOOK', e.target.id);
+      const firebaseKey = e.target.id.split('--')[1];
+      e.preventDefault();
+      const bookObject = {
+        title: document.querySelector('#title').value,
+        image: document.querySelector('#image').value,
+        price: document.querySelector('#price').value,
+        sale: document.querySelector('#sale').checked,
+        author_id: document.querySelector('#author').value,
+      };
+
+      updateBook(firebaseKey, bookObject).then((booksArray) => showBooks(booksArray));
+
+      $('#formModal').modal('toggle');
     }
 
     // ADD CLICK EVENT FOR DELETING AN AUTHOR
@@ -54,8 +82,7 @@ const domEvents = () => {
     }
 
     // ADD CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR
-    if (e.target.id.includes('add-author-btn')) {
-      console.warn('CLICKED ADD AUTHOR BUTTON', e.target.id);
+    if (e.target.id.includes('add-button')) {
       addAuthorForm();
     }
     // ADD CLICK EVENT FOR SUBMITTING FORM FOR ADDING AN AUTHOR
@@ -65,6 +92,7 @@ const domEvents = () => {
         first_name: document.querySelector('#firstName').value,
         last_name: document.querySelector('#lastName').value,
         favorite: document.querySelector('#favorite').checked,
+        uid: firebase.auth().currentUser.uid,
       };
 
       createAuthor(authorObject).then((authorArray) => showAuthors(authorArray));
