@@ -7,8 +7,8 @@ import firebaseConfig from '../auth/apiKeys';
 const dbUrl = firebaseConfig.databaseURL;
 
 // GET AUTHORS
-const getAuthors = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/authors.json?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
+const getAuthors = (uid) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/authors.json?orderBy="uid"&equalTo="${uid}"`)
     .then((response) => {
       if (response.data) {
         const authorArray = Object.values(response.data);
@@ -33,7 +33,7 @@ const createAuthor = (authorObject) => new Promise((resolve, reject) => {
       const body = { firebaseKey: response.data.name };
       axios.patch(`${dbUrl}/authors/${response.data.name}.json`, body)
         .then(() => {
-          getAuthors().then((authorArray) => resolve(authorArray));
+          getAuthors(firebase.auth().currentUser.uid).then((authorArray) => resolve(authorArray));
         });
     }).catch((error) => reject(error));
 });
