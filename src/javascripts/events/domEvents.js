@@ -5,16 +5,22 @@ import { showBooks } from '../components/books';
 import {
   createBook,
   deleteBook,
+  // getAuthorBooks,
   // getBooks,
   getSingleBook,
   updateBook
 } from '../helpers/data/bookData';
 import { showAuthors } from '../components/authors';
-import { createAuthor, deleteAuthor } from '../helpers/data/authorData';
+import {
+  createAuthor,
+  // deleteAuthor
+} from '../helpers/data/authorData';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import addBookForm from '../components/forms/addBookForm';
 import editBookForm from '../components/forms/editBookForm';
 import formModal from '../components/forms/formModal';
+import { authorBookInfo, deleteAuthorBooks } from '../helpers/data/authorBooksData';
+import authorInfo from '../components/authorInfo';
 
 const domEvents = (uid) => {
   document.querySelector('body').addEventListener('click', (e) => {
@@ -76,9 +82,21 @@ const domEvents = (uid) => {
     // ADD CLICK EVENT FOR DELETING AN AUTHOR
     if (e.target.id.includes('delete-author')) {
       if (window.confirm('Want to delete?')) {
-        const firebaseKey = e.target.id.split('--')[1];
-        deleteAuthor(firebaseKey).then((authorArray) => showAuthors(authorArray));
+        const authorId = e.target.id.split('--')[1];
+        console.warn(authorId);
+        // getAuthorBooks(authorId).then((authorBooksArray) => console.warn(authorBooksArray));
+        deleteAuthorBooks(authorId, uid).then((authorsArray) => showAuthors(authorsArray));
+        // .then((authorArray) => showAuthors(authorArray));
       }
+    }
+
+    if (e.target.id.includes('author-name-title')) {
+      const authorId = e.target.id.split('--')[1];
+      console.warn(authorId);
+      authorBookInfo(authorId).then((authorInfoObject) => {
+        showBooks(authorInfoObject.books);
+        authorInfo(authorInfoObject.author);
+      });
     }
 
     // ADD CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR

@@ -12,7 +12,8 @@ const showAuthors = (array) => {
     document.querySelector('#store').innerHTML += `
     <div class="card">
         <div class="card-body" style="height: 180px;">
-        <h5 class="card-title">${item.first_name} ${item.last_name}</h5>
+        <a href="#" id="author-name-title--${item.firebaseKey}"
+        <h5 class="card-title">${item.first_name} ${item.last_name}</h5></a>
         <p class="card-text bold">${item.favorite ? '<span class="badge badge-info sale-badge"><i class="fa heart" aria-hidden="true"></i> Favorite</span>' : ''} </p>
         <hr>
         <button class="btn btn-danger" id="delete-author--${item.firebaseKey}">Delete Author</button>
